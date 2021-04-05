@@ -127,6 +127,7 @@ describe( 'getNavigationPostForMenu', () => {
 				{
 					attributes: {
 						orientation: 'vertical',
+						showJustifyControls: false,
 					},
 					clientId: expect.stringMatching( /client-id-\d+/ ),
 					innerBlocks: [
