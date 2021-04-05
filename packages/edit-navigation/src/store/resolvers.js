@@ -121,6 +121,7 @@ function createNavigationBlock( menuItems ) {
 		'core/navigation',
 		{
 			orientation: 'vertical',
+			showJustifyControls: false,
 		},
 		innerBlocks
 	);
