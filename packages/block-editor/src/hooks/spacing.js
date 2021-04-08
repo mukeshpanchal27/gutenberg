@@ -34,7 +34,7 @@ export function SpacingPanel( props ) {
 }
 
 /**
- * Determine whether there is block support for padding or margins.
+ * Determine whether there is block support for padding.
  *
  * @param {string} blockName Block name.
  * @return {boolean}         Whether there is support.
@@ -46,7 +46,7 @@ export function hasSpacingSupport( blockName ) {
 
 	const support = getBlockSupport( blockName, SPACING_SUPPORT_KEY );
 
-	return !! ( true === support || support?.padding || support?.margin );
+	return !! ( true === support || support?.padding );
 }
 
 /**
