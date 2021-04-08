@@ -18,6 +18,9 @@ describe( 'getInlineStyles', () => {
 				color: { text: 'red', background: 'black' },
 				typography: { lineHeight: 1.5, fontSize: 10 },
 				border: { radius: 10 },
+				spacing: {
+					padding: { top: '10px' },
+				},
 			} )
 		).toEqual( {
 			backgroundColor: 'black',
@@ -25,6 +28,7 @@ describe( 'getInlineStyles', () => {
 			color: 'red',
 			lineHeight: 1.5,
 			fontSize: 10,
+			paddingTop: '10px',
 		} );
 	} );
 } );
