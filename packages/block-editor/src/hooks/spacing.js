@@ -7,6 +7,7 @@ import { Platform } from '@wordpress/element';
 /**
  * Internal dependencies
  */
+import { MarginEdit, useIsMarginDisabled } from './margin';
 import { PaddingEdit, useIsPaddingDisabled } from './padding';
 import SpacingPanelControl from '../components/spacing-panel-control';
 
@@ -29,12 +30,13 @@ export function SpacingPanel( props ) {
 	return (
 		<SpacingPanelControl key="spacing">
 			<PaddingEdit { ...props } />
+			<MarginEdit { ...props } />
 		</SpacingPanelControl>
 	);
 }
 
 /**
- * Determine whether there is block support for padding.
+ * Determine whether there is block support for padding or margins.
  *
  * @param {string} blockName Block name.
  * @return {boolean}         Whether there is support.
@@ -46,7 +48,7 @@ export function hasSpacingSupport( blockName ) {
 
 	const support = getBlockSupport( blockName, SPACING_SUPPORT_KEY );
 
-	return !! ( true === support || support?.padding );
+	return !! ( true === support || support?.padding || support?.margin );
 }
 
 /**
@@ -57,8 +59,9 @@ export function hasSpacingSupport( blockName ) {
  */
 const useIsSpacingDisabled = ( props = {} ) => {
 	const paddingDisabled = useIsPaddingDisabled( props );
+	const marginDisabled = useIsMarginDisabled( props );
 
-	return paddingDisabled;
+	return paddingDisabled && marginDisabled;
 };
 
 /**

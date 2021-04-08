@@ -20,6 +20,7 @@ describe( 'getInlineStyles', () => {
 				border: { radius: 10 },
 				spacing: {
 					padding: { top: '10px' },
+					margin: { bottom: '15px' },
 				},
 			} )
 		).toEqual( {
@@ -28,6 +29,7 @@ describe( 'getInlineStyles', () => {
 			color: 'red',
 			lineHeight: 1.5,
 			fontSize: 10,
+			marginBottom: '15px',
 			paddingTop: '10px',
 		} );
 	} );

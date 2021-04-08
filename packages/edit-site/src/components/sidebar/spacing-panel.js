@@ -15,8 +15,9 @@ import { useEditorFeature } from '../editor/utils';
 
 export function useHasSpacingPanel( context ) {
 	const hasPadding = useHasPadding( context );
+	const hasMargin = useHasMargin( context );
 
-	return hasPadding;
+	return hasPadding || hasMargin;
 }
 
 export function useHasPadding( { name, supports } ) {
@@ -24,6 +25,12 @@ export function useHasPadding( { name, supports } ) {
 		useEditorFeature( 'spacing.customPadding', name ) &&
 		supports.includes( 'padding' )
 	);
+}
+
+function useHasMargin( { name, supports } ) {
+	const settings = useEditorFeature( 'spacing.customMargin', name );
+
+	return settings && supports.includes( 'margin' );
 }
 
 function filterUnitsWithSettings( settings = [], units = [] ) {
@@ -72,6 +79,7 @@ function filterValuesBySides( values, sides ) {
 export default function SpacingPanel( { context, getStyle, setStyle } ) {
 	const { name } = context;
 	const showPaddingControl = useHasPadding( context );
+	const showMarginControl = useHasMargin( context );
 	const units = useCustomUnits( { contextName: name } );
 
 	const paddingValues = getStyle( name, 'padding' );
@@ -82,6 +90,14 @@ export default function SpacingPanel( { context, getStyle, setStyle } ) {
 		setStyle( name, 'padding', padding );
 	};
 
+	const marginValues = getStyle( name, 'margin' );
+	const marginSides = useCustomSides( name, 'margin' );
+
+	const setMarginValues = ( newMarginValues ) => {
+		const margin = filterValuesBySides( newMarginValues, marginSides );
+		setStyle( name, 'margin', margin );
+	};
+
 	return (
 		<PanelBody title={ __( 'Spacing' ) }>
 			{ showPaddingControl && (
@@ -90,6 +106,16 @@ export default function SpacingPanel( { context, getStyle, setStyle } ) {
 					onChange={ setPaddingValues }
 					label={ __( 'Padding' ) }
 					sides={ paddingSides }
+					units={ units }
+					resetToInitialValues
+				/>
+			) }
+			{ showMarginControl && (
+				<BoxControl
+					values={ marginValues }
+					onChange={ setMarginValues }
+					label={ __( 'Margin' ) }
+					sides={ marginSides }
 					units={ units }
 					resetToInitialValues
 				/>
